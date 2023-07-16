@@ -1,0 +1,6 @@
+; Symbol Table
+; Symbol	Value
+=====================
+MARK      	22
+QUIZ      	26
+COPY      	30

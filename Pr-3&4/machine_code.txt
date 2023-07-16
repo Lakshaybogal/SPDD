@@ -1,0 +1,13 @@
+; Machine Code
+; Location Counter	Instruction
+=====================
+0   	SR	6,6
+2   	L	6, 22(0, 4)
+6   	A	6, 26(0, 4)
+10  	ST	6, 12(0, 5)
+14  	ST	6, 20(0, 5)
+18  	C	6, 30(0, 5)
+22  	MARK DC F'79'	
+26  	QUIZ DC F'7'	
+30  	COPY DS 1F	
+34  	END	

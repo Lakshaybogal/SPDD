@@ -1,0 +1,16 @@
+; Location Counter Table
+; Line	LC
+=====================
+1    	0         	CSE     START 0
+2    	0         	USING   *,4
+3    	0         	SR 6,6
+4    	2         	L 6,MARK
+5    	6         	A 6,QUIZ
+6    	10        	USING   *,5
+7    	10        	ST 6,MARK
+8    	14        	ST 6,COPY
+9    	18        	C 6,=F'85'
+10   	22        	MARK    DC F'79'
+11   	26        	QUIZ    DC F'7'
+12   	30        	COPY    DS 1F
+13   	34        	END

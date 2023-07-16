@@ -1,0 +1,23 @@
+MACRO
+INCR &arg1,&arg2,&arg3
+A 1,&arg1
+A 1,&arg2
+A 1,&arg3
+MEND
+
+MACRO
+DCR &arg1,&arg2
+S 2,&arg1,
+S 2,&arg2
+MEND
+
+MACRO
+ABC &arg1
+A 1,&arg1
+MEND
+
+USING 0,15
+INCR d1,d2,d3
+DCR k1,k2
+ABC q1
+END

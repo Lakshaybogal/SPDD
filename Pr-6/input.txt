@@ -1,0 +1,15 @@
+PG1     START
+            ENTRY SYMA,PG1
+            EXTERN PG2,SYMB3
+            DC  A(PG1),A(PG2+6)
+            DC A(SYMA-PG1),A(SYMB3-PG2)
+SYMA    DC  A(SYMA-PG2+2)
+            END
+PG2     START
+            ENTRY   PG2,SYMB1
+            EXTERN  SYMA,PG1
+            DC  A(SYMA+2),A(SYMB3-SYMB2+2)
+            SYMB1   DC  A(PG2-SYMB1+6)
+            SYMB2   DC  A(PG2-SYMB1+6)
+            SYMB3   DC  A(SYMB2-PG2),A(SYMB1+PG2)
+            END
