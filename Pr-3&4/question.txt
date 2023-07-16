@@ -1,0 +1,14 @@
+; Sample Assembly Code
+CSE     START 0
+USING   *,4
+        SR 6,6
+        L 6,MARK
+        A 6,QUIZ
+USING   *,5
+        ST 6,MARK
+        ST 6,COPY
+        C 6,=F'85'
+MARK    DC F'79'
+QUIZ    DC F'7'
+COPY    DS 1F
+        END

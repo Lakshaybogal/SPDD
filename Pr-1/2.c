@@ -73,7 +73,6 @@ void AddMenus(HWND hwnd)
   hMenubar = CreateMenu();
   hMenu = CreateMenu();
 
-  // hMenubar1 = CreateMenu();
   hMenu1 = CreateMenu();
   HMENU hSubMenu = CreatePopupMenu();
 
@@ -90,9 +89,6 @@ void AddMenus(HWND hwnd)
 
   AppendMenuW(hMenu1, MF_STRING, IDM_FILE_UNDO, L"&Undo");
   AppendMenuW(hMenubar, MF_POPUP, (UINT_PTR)hMenu1, L"&Edit");
-  /*
-   AppendMenuW(hMenu1, MF_STRING, IDM_FILE_UNDO, L"&Undo");
-   AppendMenuW(hMenubar1, MF_POPUP, (UINT_PTR) hMenu, L"&Edit");
-   */
+ 
   SetMenu(hwnd, hMenubar);
 }

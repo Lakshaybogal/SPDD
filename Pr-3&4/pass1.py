@@ -40,7 +40,7 @@ def write_base_table(base_table):
 
 
 def pass1(filename):
-    with open(filename, 'r') as file:
+    with open('question.txt', 'r') as file:
         lines = file.readlines()
 
     literal_table = {}

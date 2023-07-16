@@ -24,10 +24,6 @@ with open('symbol_table.txt', 'r') as file:
         symbol, value = list(map(str.strip, line.strip().split('\t')))
         symbol_table[symbol] = value
 
-# print(base_table)
-# print(literal_table)
-# print(symbol_table)
-
 machine_code = []
 base_register = 0
 

@@ -9,7 +9,7 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
   int x;
   for (x = 0; x <= 9; x++)
   {
-    h[x] = CreateWindow("BUTTON", "PRESS Me", WS_OVERLAPPED, 20 * x, 20 * x, 250, 100, 0, 0, 0, 0);
+    h[x] = CreateWindow("BUTTON", "PRESS Me", WS_ACTIVECAPTION, 20 * x, 20 * x, 250, 100, 0, 0, 0, 0);
     ShowWindow(h[x], nCmdShow);
   }
 
