@@ -29,9 +29,8 @@ a. Write a program to design ESD, TXT, RLD using PASS1 and PASS 2 of loader.
 a. Setting cursor size
 b. Scroll the window down
 c. Positioning the cursor
-
 d. Reading the cursor position.
-8. Write a C program for following mouse operation.
+8. Write a C program for the following mouse operation.
 a. Check if mouse support is available or not
 b. Display mouse pointer in graphics mode
 c. Determine which mouse button is clicked
