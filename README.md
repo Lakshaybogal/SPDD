@@ -1,6 +1,6 @@
 credit - 
-https://github.com/Prathamesh314
-https://github.com/Adnan-S-Husain
+Prathamesh : https://github.com/Prathamesh314
+Adnam : https://github.com/Adnan-S-Husain
 
 1. Study of Windows Programming.
 a. Write a program that prints the value of hInstance in a message box.
