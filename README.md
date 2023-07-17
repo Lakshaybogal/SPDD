@@ -1,6 +1,6 @@
 credit - 
-Prathamesh : https://github.com/Prathamesh314
-Adnam : https://github.com/Adnan-S-Husain
+Prathamesh: https://github.com/Prathamesh314.
+Adnan: https://github.com/Adnan-S-Husain 
 
 1. Study of Windows Programming.
 a. Write a program that prints the value of hInstance in a message box.
@@ -8,7 +8,7 @@ b. Write a program that receives a number as a command line argument and prints
 its factorial value in a message box.
 c. Write a program that receives a string of words as a command line argument and
 print the count of no. of words
-2. Study of creation of Window.
+2. Study of the creation of Window.
 a. Try to display a window with different combinations of window styles and
 observe the results.
 b. Write a program, which receives an integer as a command line argument, creates
