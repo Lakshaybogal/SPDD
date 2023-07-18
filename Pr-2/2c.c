@@ -75,7 +75,7 @@ int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCm
   wc.lpszClassName = "Main Class";
   wc.lpszMenuName = "First Menue";
   RegisterClass(&wc);
-  hwndMain = CreateWindow("Main Class", "SMIT KHOBRAGADE", WS_OVERLAPPEDWINDOW, 0, 0, 300, 300, 0, 0, hInstance, 0);
+  hwndMain = CreateWindow("Main Class", "Name", WS_OVERLAPPEDWINDOW, 0, 0, 300, 300, 0, 0, hInstance, 0);
   ShowWindow(hwndMain, SW_NORMAL);
   while (GetMessage(&msg, 0, 0, 0))
   {
