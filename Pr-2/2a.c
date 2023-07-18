@@ -14,5 +14,5 @@ int _stdcall WinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPSTR IpszCmd
   ShowWindow(h[3], nCmdShow);
   h[4] = CreateWindow("BUTTON", "SYSMENU", WS_SYSMENU, 400, 400, 150, 100, 0, 0, hinstance, 0);
   ShowWindow(h[4], nCmdShow);
-  MessageBox(0, "SMIT KHOBRAGADE hi !", "Waiting", MB_OK);
+  MessageBox(0, " name !", "Waiting", MB_OK);
 }
