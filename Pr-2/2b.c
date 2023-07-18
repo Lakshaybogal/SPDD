@@ -27,7 +27,7 @@ int _stdcall WinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPSTR lpszCmd
     ShowWindow(h, SW_NORMAL);
   }
 
-  MessageBox(0, "Helo  World! ", "SMIT KHOBRAGADE", MB_OK);
+  MessageBox(0, "Helo  World! ", "NAme", MB_OK);
 
   return 0;
 }
