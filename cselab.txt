@@ -1,0 +1,929 @@
+                                                                                                          PRACTICAL 1
+a. Write a program that prints the value of hinstance in a message box.
+b. Write a program that receives a number as command line argument and
+print its factorial value in a message box.
+c. Write a program that receives a multiple word string as command line
+argument and print number of words in a message box.
+
+
+#include <windows.h>
+int _stdcall WinMain (HINSTANCE hinstance, HINSTANCE hPrevinstance, LPSTR IpszCmdline, int
+nCmdShow)
+{
+char str[10];
+sprintf(str, "HINSTANCE Value: %d",hinstance);
+MessageBox(0,str, "Title",MB_OK);
+return 0;
+}
+
+
+
+
+#include <windows.h>
+int _stdcall WinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPSTR IpszCmdline, int
+nCmdShow){
+char str[10];
+int num,i,f=1;
+num = atoi(IpszCmdline);
+for(i =1;i <= num; i++){
+
+f= f*i;
+}
+sprintf(str,"Factorial of %d is: %d",num,f);
+MessageBox(0, str, "Factorial",MB_OK);
+return 0;
+}
+
+
+
+
+#include <windows.h>
+#include<stdio.h>
+int _stdcall WinMain(HINSTANCE hlnstance, HINSTANCE prelnstance, LPSTR IpszCmdline, int
+cmdshow)
+{
+
+char str[50];
+sprintf(str, "%s", IpszCmdline);
+int count=0, i=0;
+while(str[i]!='\0')
+{ if(str[i]==' ')
+{
+count++;
+}
+i++;
+}
+
+//printf("No of words=%d",count);
+sprintf(str, "%d",count);
+MessageBox(0,str, "No of Words", MB_OK);
+return 0;
+}
+
+
+**********************************************************************************************************************************
+                                                                                                                       PRACTICAL 2
+a.     Try to display a window with different combinations of window styles
+and observe the results.
+b.     Write a program, which receives an integer number as command line
+argument, create edit window, and based on the value of the integer
+display button windows as maximized/minimized/ normal.
+c.      Write a program to create window with menu bar.
+#include <windows.h>
+int _stdcall WinMain(HINSTANCE hinstance, HINSTANCE hPrevinstance, LPSTR IpszCmdline, int
+nCmdShow)
+{
+HWND h[5];
+h[0] = CreateWindow("BUTTON", "HSCROLL", WS_HSCROLL,10,10,150,100,0,0, hinstance,0);
+ShowWindow(h[0], nCmdShow);
+h[1] = CreateWindow("BUTTON", "MAXIMIZEBOX",WS_OVERLAPPEDWINDOW|WS_MAXIMIZEBOX,100,100,150,100,0, 0,hinstance, 0);
+ShowWindow(h [1], nCmdShow);
+h[2] = CreateWindow("BUTTON", "MINIMIZEBOx",WS_OVERLAPPEDWINDOW|WS_MINIMIZEBOX,200,200,150,100,0,0, hinstance,0);
+ShowWindow (h [2], nCmdShow);
+h[3] = CreateWindow("BUTTON","VSCROLL",WS_VSCROLL,300,300,150,100,0,0, hinstance,0);
+ShowWindow(h[3], nCmdShow);
+h[4] = CreateWindow("'BUTTON","SYSMENU",WS_SYSMENU,400,400,150,100,0, 0, hinstance,0);
+ShowWindow(h [4], nCmdShow);
+MessageBox(0,"hi","Waiting",MB_OK);
+    return 0;
+}
+
+
+
+
+#include <windows.h>
+int _stdcall WinMain(HINSTANCE hinstance,HINSTANCE hPrevinstance,LPSTR IpszCmdline,int
+nCmdShow)
+{
+HWND h;
+int num;
+num = atoi(IpszCmdline);
+h= CreateWindow("Button","HIT ME",WS_OVERLAPPEDWINDOW,10,10,150,100,0,0, hinstance,0);
+switch(num){
+case 0:
+ShowWindow(h,SW_HIDE);
+break;
+case 1:
+ShowWindow(h,SW_NORMAL);
+break;
+case 2:
+ShowWindow(h,SW_MINIMIZE);
+break;
+case 3:
+ShowWindow(h,SW_MAXIMIZE);
+break;
+default:
+ShowWindow(h,SW_NORMAL);
+}
+MessageBox(0, "hi","Waiting",MB_OK);
+return 0;
+
+}
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include<windows.h>
+WNDCLASS wc;
+#define ID_FILE_NEW 1
+#define ID_FILE_OPEN 2
+#define ID_FILE_EXIT 3
+long _stdcall myfunc(HWND w, UINT x, UINT y, long z){
+switch(x){
+case WM_DESTROY:
+PostQuitMessage(0);
+MessageBox(0,"hello","wait",MB_OK);
+printf("\n executed succcefully...)");
+break;
+
+case WM_CREATE:
+addMenu(w);
+break;
+
+case WM_COMMAND:
+switch(y){
+case ID_FILE_NEW:
+MessageBox(0,"New Button Clicked","File",MB_OK);
+break;
+
+case ID_FILE_OPEN:
+MessageBox(0,"Open Button Clicked","File",MB_OK);
+break;
+
+case ID_FILE_EXIT:
+PostQuitMessage (0);
+break;
+}
+break;
+default:
+return DefWindowProc(w,x,y,z);
+}
+return 0;
+}
+void addMenu(HWND h){
+HMENU hmenu, hparantmenu;
+hmenu = CreateMenu();
+hparantmenu = CreateMenu();
+AppendMenu(hparantmenu,MF_POPUP,hmenu,"&file");
+AppendMenu(hmenu,MF_STRING,ID_FILE_NEW,"&New");
+AppendMenu(hmenu, MF_STRING,ID_FILE_OPEN,"&0pen");
+AppendMenu(hmenu,MF_STRING,ID_FILE_EXIT,"&Exit");
+SetMenu(h,hparantmenu);
+}
+int _stdcall WinMain (HINSTANCE hinstance,HINSTANCE prevhinstance,LPSTR lpszcmdline, int
+ncmdShow){
+HINSTANCE hinst;
+HWND hwndMain;
+MSG msg;
+wc.lpfnWndProc = myfunc;
+wc.hInstance = hinstance;
+wc.lpszClassName = "MainClass";
+wc.lpszMenuName = "FirstMenu";
+RegisterClass(&wc);
+//code for createwindow and showwindow
+hwndMain =
+CreateWindow("MainClass","TEST",WS_OVERLAPPEDWINDOW,0,0,300,300,0,0, hinstance, 0);
+ShowWindow (hwndMain,SW_NORMAL);
+while(GetMessage (&msg,0,0,0))
+      {
+DispatchMessage(&msg);
+      }
+return 0;
+}
+
+
+
+**************************************************************************************************************************
+                                  										PRACTICAL 3
+Implementation of Pass-I of an assembler.
+a. Write a program to design Machine-Op Table (MOT) and Pseudo-Op Table (POT)
+b. Write a program to design Literal Table (LT).
+c. Write a program to design Symbol Table (ST).
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+typedef struct
+{
+char mnemonic[10];
+char opcode[3];
+} MachineOp;
+
+typedef struct
+{
+
+char mnemonic[10];
+
+char opcode[3];
+} PseudoOp;
+
+typedef struct
+{
+char literal[10];
+char address[4];
+} Literal;
+
+typedef struct
+{
+char symbol[10];
+char address[4];
+} Symbol;
+
+void build_machine_op_table(MachineOp mot[], int *motSize)
+{
+// Define machine operations and their opcodes
+MachineOp add = {"ADD", "01"};
+MachineOp sub = {"SUB", "02"};
+MachineOp load = {"LOAD", "03"};
+MachineOp store = {"STORE", "04"};
+// Add more machine operations as needed
+
+// Add machine operations to MOT
+mot[0] = add;
+mot[1] = sub;
+mot[2] = load;
+mot[3] = store;
+// Add more machine operations as needed
+
+*motSize = 4; // Update MOT size accordingly
+}
+
+void build_pseudo_op_table(PseudoOp pot[], int *potSize)
+{
+// Define pseudo-operations and their opcodes
+PseudoOp start = {"START", "01"};
+PseudoOp end = {"END", "02"};
+PseudoOp reserve = {"RESERVE", "03"};
+// Add more pseudo-operations as needed
+
+// Add pseudo-operations to POT
+pot[0] = start;
+pot[1] = end;
+pot[2] = reserve;
+// Add more pseudo-operations as needed
+
+*potSize = 3; // Update POT size accordingly
+}
+void add_to_literal_table(Literal lt[], int *ltSize, char *literal)
+{
+// Check if the literal is already present in the Literal Table
+for (int i = 0; i < *ltSize; i++)
+{
+if (strcmp(lt[i].literal, literal) == 0)
+{
+return; // Literal already exists, no need to add
+}
+}
+
+// Add the literal to the Literal Table
+strcpy(lt[*ltSize].literal, literal);
+sprintf(lt[*ltSize].address, "L%02d", *ltSize + 1);
+(*ltSize)++;
+}
+
+void add_to_symbol_table(Symbol st[], int *stSize, char symbol[], char location[])
+{
+for (int i = 0; i < *stSize; i++)
+{
+if (strcmp(st[i].symbol, symbol) == 0)
+{
+return; // Symbol already exists in ST
+}
+}
+
+Symbol newSymbol;
+strcpy(newSymbol.symbol, symbol);
+strcpy(newSymbol.address, location);
+st[*stSize] = newSymbol;
+(*stSize)++; // Increment ST size
+}
+
+void process_input_file(char filename[], MachineOp mot[], int motSize, PseudoOp pot[], int potSize,
+Literal lt[], int *ltSize, Symbol st[], int *stSize)
+{
+FILE *file = fopen(filename, "r");
+if (file == NULL)
+{
+printf("Error: Could not open input file\n");
+return;
+}
+
+char line[MAX_SIZE];
+
+while (fgets(line, sizeof(line), file))
+{
+line[strcspn(line, "\r\n")] = '\0';
+
+// Remove newline character
+if (line[0] == '\0' || line[0] == ';')
+{
+continue;
+}
+
+// Split the line into label, mnemonic, and operand
+char *label = NULL;
+char *mnemonic = NULL;
+char *operand = NULL;
+
+label = strtok(line, " \t");
+mnemonic = strtok(NULL, " \t");
+operand = strtok(NULL, " \t");
+
+// Process label, if present
+if (label != NULL)
+{
+add_to_symbol_table(st, stSize, label, ""); // Pass empty location for now
+}
+
+// Process mnemonic and operand
+if (mnemonic != NULL)
+{
+int foundMnemonic = 0;
+for (int i = 0; i < motSize; i++)
+{
+if (strcmp(mot[i].mnemonic, mnemonic) == 0)
+{
+foundMnemonic = 1;
+break;
+}
+}
+
+if (foundMnemonic)
+{
+// Update location for machine operations
+char location[4];
+sprintf(location, "%02X", *ltSize + *stSize);
+add_to_symbol_table(st, stSize, "", location);
+}
+else
+{
+// Check if mnemonic is in POT
+int foundPseudo = 0;
+for (int i = 0; i < potSize; i++)
+{
+if (strcmp(pot[i].mnemonic, mnemonic) == 0)
+{
+foundPseudo = 1;
+break;
+}
+}
+
+if (foundPseudo)
+{
+// Process operand for RESERVE pseudo-operation
+if (strcmp(mnemonic, "RESERVE") == 0 && operand != NULL)
+{
+int reserveSize = atoi(operand);
+
+// Update location for RESERVE pseudo-operation
+char location[4];
+sprintf(location, "%02X", *ltSize + *stSize + reserveSize);
+add_to_symbol_table(st, stSize, "", location);
+}
+}
+
+else
+{
+// Process operand if it is a literal
+if (operand != NULL && operand[0] == '=')
+{
+add_to_literal_table(lt, ltSize, operand);
+}
+else
+{
+printf("Error: Unknown mnemonic '%s'\n", mnemonic);
+}
+}
+}
+}
+}
+
+fclose(file);
+}
+
+void display_tables(MachineOp mot[], int motSize, PseudoOp pot[], int potSize, Literal lt[], int ltSize,
+Symbol st[], int stSize)
+{
+printf("Machine-Op Table (MOT):\n");
+for (int i = 0; i < motSize; i++)
+{
+printf("%s : %s\n", mot[i].mnemonic, mot[i].opcode);
+}
+printf("\n");
+
+printf("Pseudo-Op Table (POT):\n");
+for (int i = 0; i < potSize; i++)
+{
+printf("%s : %s\n", pot[i].mnemonic, pot[i].opcode);
+
+}
+printf("\n");
+
+printf("Literal Table (LT):\n");
+for (int i = 0; i < ltSize; i++)
+{
+printf("%s : %s\n", lt[i].literal, lt[i].address);
+}
+printf("\n");
+
+printf("Symbol Table (ST):\n");
+for (int i = 0; i < stSize; i++)
+{
+printf("%s : %s\n", st[i].symbol, st[i].address);
+}
+}
+
+int main()
+{
+MachineOp mot[MAX_SIZE];
+int motSize = 0;
+PseudoOp pot[MAX_SIZE];
+int potSize = 0;
+Literal lt[MAX_SIZE];
+int ltSize = 0;
+Symbol st[MAX_SIZE];
+int stSize = 0;
+
+char filename[MAX_SIZE];
+
+// Build MOT and POT
+build_machine_op_table(mot, &motSize);
+build_pseudo_op_table(pot, &potSize);
+
+printf("Enter the input file name: ");
+fgets(filename, sizeof(filename), stdin);
+filename[strcspn(filename, "\r\n")] = '\0'; // Remove newline character
+
+// Process input file
+process_input_file(filename, mot, motSize, pot, potSize, lt, &ltSize, st, &stSize);
+
+// Display tables
+display_tables(mot, motSize, pot, potSize, lt, ltSize, st, stSize);
+
+return 0;
+}
+
+Input File:
+START
+LABEL1 ADD X
+LABEL2 SUB Y
+LOAD =CONST1
+STORE A
+LABEL3 LOAD B
+SUB =CONST2
+RESERVE 5
+CONST1 BYTE 'Hello'
+CONST2 WORD 42
+END
+
+
+
+**************************************************************************************************************************
+														PRACTICAL 4
+4. Implementation of Pass-II of an assembler.
+a. Write a program to design Base Table (BT)
+b. Write a program to generate machine code.
+
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+void main()
+{
+char a[10],ad[10],label[10],opcode[10],operand[10],symbol[10],ch; int
+st,diff,i,address,add,len,actual_len,finaddr,prevaddr,j=0;
+char mnemonic[15][15]={"LDA","STA","LDCH","STCH"};
+char code[15][15]={"33","44","53","57"};
+FILE *fp1,*fp2,*fp3,*fp4;
+clrscr();
+fp1=fopen("ASSMLIST.DAT","w");
+fp2=fopen("SYMTAB.DAT","r");
+fp3=fopen("INTERMED.DAT","r");
+fp4=fopen("OBJCODE.DAT","w");
+fscanf(fp3,"%s%s%s",label,opcode,operand);
+while(strcmp(opcode,"END")!=0)
+{
+prevaddr=address;
+fscanf(fp3,"%d%s%s%s",&address,label,opcode,operand);
+}
+finaddr=address;
+fclose(fp3);
+fp3=fopen("INTERMED.DAT","r");
+fscanf(fp3,"%s%s%s",label,opcode,operand);
+if(strcmp(opcode,"START")==0)
+{
+
+fprintf(fp1,"\t%s\t%s\t%s\n",label,opcode,operand);
+fprintf(fp4,"H^%s^00%s^00%d\n",label,operand,finaddr);
+fscanf(fp3,"%d%s%s%s",&address,label,opcode,operand);
+st=address;
+diff=prevaddr-st;
+fprintf(fp4,"T^00%d^%d",address,diff);
+}
+while(strcmp(opcode,"END")!=0)
+{
+if(strcmp(opcode,"BYTE")==0)
+{
+fprintf(fp1,"%d\t%s\t%s\t%s\t",address,label,opcode,operand);
+len=strlen(operand);
+actual_len=len-3;
+fprintf(fp4,"^");
+for(i=2;i<(actual_len+2);i++)
+{
+itoa(operand[i],ad,16);
+fprintf(fp1,"%s",ad);
+fprintf(fp4,"%s",ad);
+}
+fprintf(fp1,"\n");
+}
+else if(strcmp(opcode,"WORD")==0)
+{
+len=strlen(operand);
+itoa(atoi(operand),a,10);
+fprintf(fp1,"%d\t%s\t%s\t%s\t00000%s\n",address,label,opcode,operand,a);
+fprintf(fp4,"^00000%s",a);
+}
+else if((strcmp(opcode,"RESB")==0)||(strcmp(opcode,"RESW")==0))
+fprintf(fp1,"%d\t%s\t%s\t%s\n",address,label,opcode,operand);
+else
+{
+while(strcmp(opcode,mnemonic[j])!=0)
+j++;
+if(strcmp(operand,"COPY")==0)
+fprintf(fp1,"%d\t%s\t%s\t%s\t%s0000\n",address,label,opcode,operand,code[j]);
+else
+{
+rewind(fp2);
+fscanf(fp2,"%s%d",symbol,&add);
+while(strcmp(operand,symbol)!=0)
+fscanf(fp2,"%s%d",symbol,&add);
+fprintf(fp1,"%d\t%s\t%s\t%s\t%s%d\n",address,label,opcode,operand,code[j],add);
+fprintf(fp4,"^%s%d",code[j],add);
+}
+}
+fscanf(fp3,"%d%s%s%s",&address,label,opcode,operand);
+}
+fprintf(fp1,"%d\t%s\t%s\t%s\n",address,label,opcode,operand);
+fprintf(fp4,"\nE^00%d",st);
+printf("\n Intermediate file is converted into object code");
+
+fcloseall();
+printf("\n\nThe contents of Intermediate file:\n\n\t");
+fp3=fopen("INTERMED.DAT","r");
+ch=fgetc(fp3);
+while(ch!=EOF)
+{
+printf("%c",ch);
+ch=fgetc(fp3);
+}
+printf("\n\nThe contents of Symbol Table :\n\n");
+fp2=fopen("SYMTAB.DAT","r");
+ch=fgetc(fp2);
+while(ch!=EOF)
+{
+printf("%c",ch);
+ch=fgetc(fp2);
+}
+printf("\n\nThe contents of Output file :\n\n");
+fp1=fopen("ASSMLIST.DAT","r");
+ch=fgetc(fp1);
+while(ch!=EOF)
+{
+printf("%c",ch);
+ch=fgetc(fp1);
+}
+printf("\n\nThe contents of Object code file :\n\n");
+fp4=fopen("OBJCODE.DAT","r");
+ch=fgetc(fp4);
+while(ch!=EOF)
+{
+printf("%c",ch);
+ch=fgetc(fp4);
+}
+fcloseall();
+getch();
+}
+INPUT FILES:
+INTERMED.DAT
+COPY START 2000
+2000 ** LDA FIVE
+2003 ** STA ALPHA
+2006 ** LDCH CHARZ
+2009 ** STCH C1
+2012 ALPHA RESW 1
+2015 FIVE WORD 5
+2018 CHARZ BYTE C'EOF'
+2019 C1 RESB 1
+
+2020 ** END **
+SYMTAB.DAT
+ALPHA 2012
+FIVE 2015
+CHARZ 2018
+C1 2019
+
+
+
+****************************************************************************************************************************
+														PRACTICAL 5
+5. Implementation of a Macro-processor
+a. Write a program to implement Macro Definition Table (MDT).
+b. Write a program to implement Macro Name Table (MNT).
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct mdt
+{
+char lab[10];
+char opc[10];
+char oper[10];
+}d[10];
+void main()
+{
+char
+label[10],opcode[10],operand[10],newlabel[10],newoperand[10];
+char macroname[10];
+int i,lines;
+FILE *f1,*f2,*f3;
+f1 = fopen("MACIN.txt","r");
+f2 = fopen("MACOUT.txt","w");
+f3 = fopen("MDT.txt","w");
+fscanf(f1,"%s %s %s",label,opcode,operand);
+while(strcmp(opcode,"END")!=0)
+{
+if(strcmp(opcode,"MACRO")==0)
+{
+strcpy(macroname,label);
+
+fscanf(f1,"%s%s%s",label,opcode,operand);
+lines = 0;
+while(strcmp(opcode,"MEND")!=0)
+{
+fprintf(f3,"%s\t%s\t%s\n",label,opcode,operand);
+strcpy(d[lines].lab,label);
+strcpy(d[lines].opc,opcode);
+strcpy(d[lines].oper,operand);
+fscanf(f1,"%s %s %s",label,opcode,operand);
+lines++;
+}
+}
+else if(strcmp(opcode,macroname)==0)
+{
+printf("lines=%d\n",lines);
+for(i=0;i<lines;i++)
+{
+fprintf(f2,"%s\t%s\t%s\n",d[i].lab,d[i].opc,d[i].oper);
+printf("DLAB=%s\nDOPC=%\nDOPER=%s\n",d[i].lab,d[i].opc,d[i].oper); }
+}
+else
+fprintf(f2,"%s\t%s\t%s\n",label,opcode,operand);
+fscanf(f1,"%s%s%s",label,opcode,operand);
+}
+fprintf(f2,"%s\t%s\t%s\n",label,opcode,operand);
+fclose(f1);
+fclose(f2);
+fclose(f3);
+printf("FINISHED");
+}
+Source Files:
+MACIN.txt
+CALC START 1000
+SUM MACRO **
+** LDA #5
+** ADD #10
+** sTA 2000
+** MEND **
+** LDA LENGTH
+** COMP ZERO
+** JEQ LOOP
+
+** SUM **
+LENGTH WORD S
+ZERO WORD S
+LOOP SUM **
+** END **
+MDT.txt
+** LDA #5
+** ADD #10
+** sTA 2000
+MACOUT.txt
+CALC START 1000 **
+LDA LENGTH ** COMP
+ZERO ** JEQ LOOP **
+LDA #5
+** ADD #10
+** sTA 2000 LENGTH
+WORD S ZERO WORD
+S
+** LDA #5
+** ADD #10
+** sTA 2000 ** END
+**
+
+
+
+******************************************************************************************************************************
+														PRACTICAL 6
+6. Implementation of a Loader
+a. Write a program to design ESD, TXT, RLD using PASS1 and PASS 2 of loader.
+
+
+ESD=[]
+TXT=[]
+RLD=[]
+SOURCE_FILE = "input.txt"
+id=1;
+var={}
+ra=0
+lc=0
+intrnl=[]
+extrnl=[]
+with open(SOURCE_FILE, "r") as f:
+
+for line in f:
+line=line.rstrip()
+
+#print(line)
+#print("***")
+tokens=line.split("\t")
+#print(tokens)
+x=tokens[-1].split(",")
+#print(x[-1])
+if tokens[1]=="START":
+SD=[tokens[0],"SD",id,ra]
+
+id+=1
+#elif tokens[1]=="ENTRY":second
+elif tokens[1]=="DC":
+
+if tokens[0]!="-":
+var[tokens[0]]=lc;
+lc+=(len(x)*4);
+
+SD.append(lc)
+ESD.append(SD)
+lc=0
+with open(SOURCE_FILE, "r")
+as f: for line in f:
+line=line.rstrip()
+
+#print(line)
+#print("***")
+tokens=line.split("\t")
+#print(tokens)
+x=tokens[-1].split(",")
+#print(x[-1])
+if tokens[1]=="ENTRY":
+for i in x:
+intrnl.append(i)
+if i in var:
+ESD.append([i,"LD","-",var[i],"-"]) else:
+ESD.append([i,"LD","-",0,"-"])
+elif tokens[1]=="EXTRN":
+for i in x:
+extrnl.append(i)
+ESD.append([i,"ER",id,"-","-"])
+id+=1
+elif tokens[1]=="DC":
+
+for i in x:
+tmp=i[2:-1]
+stmp=""
+for i in tmp.split():
+for j in ESD:
+if i==j[0]:
+if j[2]!="-":
+RLD.append([j[2],4,"+",lc]) if i in var:
+stmp+=str(var[i])
+
+elif (i=="+" or i=="-" or i.isdigit()):
+stmp+=i;
+else:
+stmp+="0"
+
+TXT.append(["DC",str(lc)+"-"+str(lc+3),eval(stmp)])
+#print(tmp)
+
+lc+=4
+
+print("-----------------------------")
+print("\nESD\n")
+print("symbol,type,ID,rel add,length")
+for i in ESD:
+for j in i:
+print(j,"\t",end="")
+print()
+print("-----------------------------
+")
+print("-----------------------------
+") print("\nTXT\n")
+print("object code,rel
+add,content") for i in TXT:
+
+for j in i:
+print(j,"\t",end="")
+print()
+print("-----------------------------
+") print("\nRLD\n")
+print("ESDid,length,flag,rel
+add") for i in RLD:
+for j in i:
+print(j,"\t",end="")
+print()
+print("-----------------------------")
+
+
+
+
+*********************************************************************************************************************************
+															PRACTICAL 7
+7. Write a menu driven program for following
+a. Setting cursor size
+b. Scroll the window down
+c. Positioning the cursor
+d. Reading the cursor position.
+
+
+
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+void setCursorSize(int size) {
+CONSOLE_CURSOR_INFO cursorInfo;
+HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+GetConsoleCursorInfo(handle, &cursorInfo); cursorInfo.dwSize =
+size; SetConsoleCursorInfo(handle, &cursorInfo);
+printf("Cursor size set to %d.\n", size); }
+void scrollWindow(int lines) {
+HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+COORD position; position.X = 0;
+position.Y = lines;
+SetConsoleCursorPosition(handle, position);
+printf("Scrolled down %d lines.\n", lines);
+}
+void positionCursor(int x, int y) {
+HANDLE handle =
+GetStdHandle(STD_OUTPUT_HANDLE); COORD
+position;
+position.X = x;
+position.Y = y;
+SetConsoleCursorPosition(handle, position);
+printf("Cursor positioned at (%d, %d).\n", x, y);
+}
+void readCursorPosition() {
+HANDLE handle =
+GetStdHandle(STD_OUTPUT_HANDLE);
+CONSOLE_SCREEN_BUFFER_INFO screenInfo;
+GetConsoleScreenBufferInfo(handle, &screenInfo);
+printf("Cursor position: (%d, %d)\n",
+
+screenInfo.dwCursorPosition.X,
+screenInfo.dwCursorPosition.Y);
+}
+int main() {
+int choice;
+int size, lines, x, y;
+do {
+printf("Menu:\n");
+printf("1. Set cursor size\n");
+printf("2. Scroll the window down\n");
+printf("3. Position the cursor\n");
+printf("4. Read cursor position\n");
+printf("5. Exit\n");
+printf("Enter your choice: ");
+scanf("%d", &choice);
+switch (choice) {
+case 1:
+printf("Enter cursor size: ");
+scanf("%d", &size);
+setCursorSize(size);
+break;
+case 2:
+printf("Enter number of lines to scroll: "); scanf("%d",
+&lines); scrollWindow(lines);
+break;
+case 3:
+printf("Enter x-coordinate: "); scanf("%d", &x);
+printf("Enter y-coordinate: "); scanf("%d", &y);
+positionCursor(x, y);
+break;
+case 4:
+readCursorPosition();
+break;
+case 5:
+printf("Exiting program.\n");
+break;
+default:
+printf("Invalid choice. Please try again.\n"); }
+printf("\n");
+} while (choice != 5);
+return 0;
+}
+
+
+
